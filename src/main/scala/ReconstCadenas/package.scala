@@ -4,7 +4,27 @@ import Oraculo.*
 import scala.annotation.tailrec
 
 package object ReconstCadenas {
-  
+
+  val alfabeto = Seq('a', 'c', 'g', 't')
+
+  def reconstruirCadenaTurbo(n: Int, o: Oraculo): Seq[Char] = {
+    var k = 1
+    var SC = Oraculo.alfabeto.map(Seq(_))
+    while (k < n) {
+      val SCk2 = for {
+        s1 <- SC
+        s2 <- SC
+      } yield s1 ++ s2
+      val SCk2Valid = SCk2.filter(o)
+      SCk2Valid.find(_.length == n) match {
+        case Some(sol) => return sol
+        case None =>
+      }
+      SC = SCk2Valid
+      k = k * 2
+    }
+    Seq()
+  }
 
   def reconstruirCadenaMejorado(n: Int, o: Oraculo.Oraculo): Seq[Char] = {
     val alfabeto = Oraculo.alfabeto

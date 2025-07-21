@@ -7,6 +7,8 @@ import ReconstCadenasPar.*
 import Benchmark.Comparacion._
 import scala.annotation.tailrec
 import scala.util.Random
+import Oraculo.alfabeto
+
 
 object Main {
   val random = new Random()
