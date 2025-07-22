@@ -20,6 +20,8 @@ def secAlAzar(long:Int, s:Seq[Char]): Seq[Char] = {
 }
 // PRUEBAS PARA RECONSTRUIR CADENA TURBO Y TURBO PARALELA
 
+
+
 // Secuencias para pruebas turbo (potencias de 2)
 val secTurbo1 = Seq('a', 'c', 'c', 'a') // longitud 4
 val secTurbo2 = Seq('a', 'g', 'g', 'a', 't', 'c', 'c', 'a') // longitud 8
@@ -59,3 +61,32 @@ def pruebasTurboPar(ss: Seq[Seq[Char]], umbral: Int) = for {
 // Ejecutar pruebas
 pruebasTurbo(turboSeqs)
 pruebasTurboPar(turboSeqs, 5)
+
+// Pruebas de casos límite y especiales
+val especiales = Seq(
+  Seq('a'),
+  Seq('a', 'a', 'a', 'a'),
+  Seq('a', 'c', 'a', 'c', 'a', 'c', 'a', 'c'),
+  Seq('c', 'g', 't', 'a', 'c', 'g', 't', 'a'),
+  Seq.fill(16)('g')
+)
+especiales.foreach { s =>
+  val o = crearOraculo(costoOraculo)(s)
+  val turbo = reconstruirCadenaTurbo(s.length, o)
+  val par = reconstruirCadenaTurboPar(5)(s.length, o)
+  println(s"Original: $s\nTurbo: $turbo\nPar: $par\nTest: ${turbo == s && par == s}\n")
+}
+
+// Pruebas de rendimiento 
+def testTiempo(f: => Unit): Long = {
+  val t0 = System.nanoTime()
+  f
+  (System.nanoTime() - t0)/1000000
+}
+val grandes = Seq(32, 64, 128).map(n => secAlAzar(n, Seq()))
+grandes.foreach { s =>
+  val o = crearOraculo(costoOraculo)(s)
+  val t = testTiempo { reconstruirCadenaTurbo(s.length, o) }
+  val tPar = testTiempo { reconstruirCadenaTurboPar(5)(s.length, o) }
+  println(s"n=${s.length}: Turbo=${t}ms, TurboPar=${tPar}ms")
+}

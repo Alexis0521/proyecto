@@ -6,6 +6,8 @@ object PruebaArbolSufijos extends App {
 
 
   val alfabeto = Seq('a', 'c', 'g', 't')
+  
+  
 
   def reconstruirCadenaTurboPar(umbral: Int)(n: Int, o: Oraculo): Seq[Char] = {
     var k = 1

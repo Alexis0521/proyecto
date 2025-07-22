@@ -26,8 +26,7 @@ package object ReconstCadenas {
     Seq()
   }
 
-  def reconstruirCadenaMejorado(n: Int, o: Oraculo.Oraculo): Seq[Char] = {
-    val alfabeto = Oraculo.alfabeto
+  def reconstruirCadenaMejorado(n: Int, o: Oraculo.Oraculo): Seq[Char] = { val alfabeto = Oraculo.alfabeto
 
     // Función auxiliar para expandir SC(k-1) con todas las letras del alfabeto
     def expandir(sc: Set[Seq[Char]]): Set[Seq[Char]] = {
